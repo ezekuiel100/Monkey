@@ -1,5 +1,13 @@
 package token
 
+type TokenType string
+
+type Token struct{
+    Type string
+    Literal string
+}
+
+
 const (
 	ILLEGAL = "ILLEGAL"  // TOKEN THAT WE DONT KNOW
 	EOF = "EOF" // END OF FILE
