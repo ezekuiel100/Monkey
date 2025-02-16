@@ -3,7 +3,7 @@ package token
 type TokenType string
 
 type Token struct{
-    Type string
+    Type TokenType
     Literal string
 }
 
@@ -55,7 +55,7 @@ var keywords = map[string]TokenType{
 	"false": FALSE,
 	"if" : IF,
 	"else" : ELSE,
-	"return" : RETURN
+	"return" : RETURN,
 }
 
 func LookupIdent(ident string) TokenType {

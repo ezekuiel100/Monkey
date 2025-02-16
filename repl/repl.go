@@ -1,9 +1,11 @@
+package repl
+
 import (
 	"bufio"
 	"fmt"
 	"io"
-	"lexer"
-	"token"
+	"monkey/lexer"
+	"monkey/token"
 	)
 
 	const PROMPT = ">> "
@@ -14,7 +16,7 @@ import (
 
 		for{
 			fmt.Printf(PROMPT)
-			scanner := scanner.Scan()
+			scanned := scanner.Scan()
 
 			if !scanned {
 				return
@@ -23,7 +25,7 @@ import (
 			line := scanner.Text()
 			l := lexer.New(line)
 
-			for tok := l.nextToken(); tok.Type != token.EOF; tok = l.nextToken(){
+			for tok := l.NextToken(); tok.Type != token.EOF; tok = l.NextToken(){
 				fmt.Printf("%+v\n" , tok)
 			}
 		}
