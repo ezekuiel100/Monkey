@@ -3,7 +3,7 @@ package ast
 import "monkey/token"
 
 type Node interface {
-	TokenLiteral() string
+	TokenLiteral() string //Return the literal value of the token
 }
 
 type Statement interface {
@@ -35,7 +35,6 @@ type LetStatement struct {
 }
 
 func (ls *LetStatement) StatementNode() {}
-
 func (ls *LetStatement) TokenLiteral() string {
 	return ls.Token.Literal
 }
