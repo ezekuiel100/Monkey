@@ -32,8 +32,8 @@ type Parser struct {
 	curToken  token.Token
 	peekToken token.Token
 
-	prefixParseFn map[token.TokenType]prefixParseFn
-	infixParseFn  map[token.TokenType]infixParseFn
+	prefixParseFns map[token.TokenType]prefixParseFn
+	infixParseFns  map[token.TokenType]infixParseFn
 }
 
 func New(l *lexer.Lexer) *Parser {
@@ -41,11 +41,18 @@ func New(l *lexer.Lexer) *Parser {
 		errors: []string{},
 	}
 
+	p.prefixParseFns = make(map[token.TokenType]prefixParseFn)
+	p.registerPrefix(token.IDENT, p.parseIndentifier)
+
 	p.nextToken()
 	p.nextToken()
 
 	return p
 
+}
+
+func (p *Parser) parseIndentifier() ast.Expression {
+	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 }
 
 func (p *Parser) Errors() []string {
@@ -136,7 +143,7 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 }
 
 func (p *Parser) parseExpression(precedende int) ast.Expression {
-	prefix := p.prefixParseFn[p.curToken.Type]
+	prefix := p.prefixParseFns[p.curToken.Type]
 
 	if prefix == nil {
 		return nil
@@ -166,9 +173,9 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 }
 
 func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
-	p.prefixParseFn[tokenType] = fn
+	p.prefixParseFns[tokenType] = fn
 }
 
 func (p *Parser) registerInflix(tokenType token.TokenType, fn infixParseFn) {
-	p.infixParseFn[tokenType] = fn
+	p.infixParseFns[tokenType] = fn
 }
