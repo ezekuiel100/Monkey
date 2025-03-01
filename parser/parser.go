@@ -240,3 +240,11 @@ func (p *Parser) peekPrecedence() int {
 
 	return LOWEST
 }
+
+func (p *Parser) curPrecedence() int {
+	if p, ok := precedendes[p.curToken.Type]; ok {
+		return p
+	}
+
+	return LOWEST
+}
