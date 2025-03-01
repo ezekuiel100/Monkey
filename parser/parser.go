@@ -13,6 +13,17 @@ type (
 	infixParseFn  func(ast.Expression) ast.Expression
 )
 
+var precedendes = map[token.TokenType]int{
+	token.EQ:       EQUALS,
+	token.NOT_EQ:   EQUALS,
+	token.LT:       LESSGREATER,
+	token.GT:       LESSGREATER,
+	token.PLUS:     SUM,
+	token.MINUS:    SUM,
+	token.SLASH:    PRODUCT,
+	token.ASTERISK: PRODUCT,
+}
+
 const (
 	_ int = iota
 	LOWEST
@@ -220,4 +231,12 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 	expression.Right = p.parseExpression(PREFIX)
 
 	return expression
+}
+
+func (p *Parser) peekPrecedence() int {
+	if p, ok := precedendes[p.peekToken.Type]; ok {
+		return p
+	}
+
+	return LOWEST
 }
