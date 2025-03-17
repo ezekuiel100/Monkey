@@ -81,6 +81,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.nextToken()
 	p.nextToken()
 
+	fmt.Println(p)
 	return p
 
 }

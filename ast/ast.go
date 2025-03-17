@@ -121,14 +121,14 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 
-type IntergerLiteral struct {
+type IntegerLiteral struct {
 	Token token.Token
 	Value int64
 }
 
-func (il *IntergerLiteral) expressionNode()      {}
-func (il *IntergerLiteral) TokenLiteral() string { return il.Token.Literal }
-func (il *IntergerLiteral) String() string       { return il.Token.Literal }
+func (il *IntegerLiteral) expressionNode()      {}
+func (il *IntegerLiteral) TokenLiteral() string { return il.Token.Literal }
+func (il *IntegerLiteral) String() string       { return il.Token.Literal }
 
 type PrefixExpression struct {
 	Token    token.Token
@@ -149,16 +149,16 @@ func (pe *PrefixExpression) String() string {
 	return out.String()
 }
 
-type InflixExpression struct {
+type InfixExpression struct {
 	Token    token.Token
 	Left     Expression
 	Operator string
 	Right    Expression
 }
 
-func (oe *InflixExpression) expressionNode()      {}
-func (oe *InflixExpression) TokenLiteral() string { return oe.Token.Literal }
-func (oe *InflixExpression) String() string {
+func (oe *InfixExpression) expressionNode()      {}
+func (oe *InfixExpression) TokenLiteral() string { return oe.Token.Literal }
+func (oe *InfixExpression) String() string {
 	var out bytes.Buffer
 
 	out.WriteString("(")
@@ -209,7 +209,7 @@ type BlockStatement struct {
 	Statements []Statement
 }
 
-func (bs *BlockStatement) statementNode()       {}
+func (bs *BlockStatement) StatementNode()       {}
 func (bs *BlockStatement) TokenLiteral() string { return bs.Token.Literal }
 func (bs *BlockStatement) String() string {
 	var out bytes.Buffer

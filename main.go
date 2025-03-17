@@ -1,21 +1,20 @@
-package main 
+package main
 
 import (
 	"fmt"
+	"monkey/repl"
 	"os"
 	"os/user"
-	"monkey/repl"
 )
 
-
-func main(){
+func main() {
 	user, err := user.Current()
 
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 
 	fmt.Printf("Hello %s! This is the Monkey programming language!\n", user.Username)
-	fmt.Printf("Feel free to type commands \n",)
-	repl.Start(os.Stdin, os.Stdout)	
+	fmt.Printf("Feel free to type commands \n")
+	repl.Start(os.Stdin, os.Stdout)
 }
