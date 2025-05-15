@@ -46,3 +46,12 @@ func nativeBoolToBooleanObject(input bool) *object.Boolean {
 
 	return FALSE
 }
+
+func evalPrefixExpression(operator string, right object.Object) object.Object {
+	switch operator {
+	case "!":
+		return evalBangOperatorExpression(right)
+	default:
+		return NULL
+	}
+}
